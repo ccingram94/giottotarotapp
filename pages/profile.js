@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Home() {
+export default function Profile() {
   const [ session, loading ] = useSession();
   const classes = useStyles();
 
@@ -49,7 +49,7 @@ export default function Home() {
 
       <main className={classes.flexdisplay}>
         <h1 className={styles.title}>
-          Giotto Tarot
+          welcome back, {session.user.name}
         </h1>
         <Box>
           <Button className={classes.basic} onClick={handleSubmit}>reveal my fate</Button>

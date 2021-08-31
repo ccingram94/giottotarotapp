@@ -19,6 +19,7 @@ const useStyles = makeStyles({
       alignItems: 'center',
       textAlign: 'center',
       width: '50vw',
+      margin: '2vh',
     },
     textfield: {
       width: '50vw',
@@ -37,10 +38,7 @@ export default function Question() {
     return (
         <div className={classes.flexdisplay}>
             <form onSubmit={handleSubmit}>
-                <h2>enter your question below:</h2>
                 <TextField className={classes.textfield} value={question} onChange={(e) => setQuestion(e.target.value)}></TextField>
-                <br />
-                <Button className={classes.basic} onClick={handleSubmit}>reveal my fate</Button>
             </form>
         </div>
     )

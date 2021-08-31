@@ -10,6 +10,7 @@ import { useState } from 'react'
 import background from '../public/back.jpg'
 import { motion, AnimatePresence } from 'framer-motion'
 import {cards} from '../cards.js'
+import Question from '../components/Question.js'
 
 
 const useStyles = makeStyles({
@@ -81,7 +82,6 @@ export default function Reading() {
           <Button onClick={redirectHome}>Home</Button>
           <Button onClick={redirectCards}>Card Meanings</Button>
           <Button onClick={redirectProfile}>My Profile</Button>
-          {visibility && <Button className={classes.basic}>Save This Reading</Button>}
         </div>
         {!visibility &&  <h2> Click the deck to deal your cards: </h2>}
         <div className={styles.row} layout="true">
