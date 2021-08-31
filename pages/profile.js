@@ -39,6 +39,10 @@ export default function Profile() {
     router.push('/reading');
   }
 
+  const sendToCardMeanings = () => {
+    router.push('/cardmeanings');
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -48,10 +52,11 @@ export default function Profile() {
       </Head>
 
       <main className={classes.flexdisplay}>
-        {!session && <h1 className={styles.title}>please log in: <Button onClick={()=> signIn()}></Button></h1>}
+        {!session && <h1 className={styles.title}>please log in: <br /><Button className={classes.basic} onClick={()=> signIn()}>Log In</Button></h1>}
         {session && <h1 className={styles.title}> welcome back, {session.user.name}</h1>}
         <Box>
-          <Button className={classes.basic} onClick={handleSubmit}>reveal my fate</Button>
+          <Button className={classes.basic} onClick={handleSubmit}>new reading</Button>
+          <Button className={classes.basic} onClick={sendToCardMeanings}>card meanings</Button>
           <div className={styles.buttonbar}>
               {!session && <Button onClick={() => signIn()}>Sign In</Button>}
               {session && <Button onClick={() => signOut()}>Sign Out</Button>}
