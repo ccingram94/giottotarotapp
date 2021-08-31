@@ -57,7 +57,7 @@ export default function CardMeanings({  }) {
             {cards.map( (card) => {
               return (
                   <Card key={card.id} className={styles.card}>
-                    <Image src={'/../public/' + card.id + '.jpg' } height="400" width="300"></Image>
+                    <Image src={card.image} height="400" width="300"></Image>
                   <h2>{card.title}</h2>
                   <p>{card.description}</p>
                   </Card>
