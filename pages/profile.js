@@ -48,9 +48,8 @@ export default function Profile() {
       </Head>
 
       <main className={classes.flexdisplay}>
-        <h1 className={styles.title}>
-          welcome back, {session.user.name}
-        </h1>
+        {!session && <h1 className={styles.title}>please log in: <Button onClick={()=> signIn()}></Button></h1>}
+        {session && <h1 className={styles.title}> welcome back, {session.user.name}</h1>}
         <Box>
           <Button className={classes.basic} onClick={handleSubmit}>reveal my fate</Button>
           <div className={styles.buttonbar}>
