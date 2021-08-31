@@ -2,6 +2,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
+import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import { signIn, signOut, useSession } from 'next-auth/client'
 
 export default function Home() {
   return (
