@@ -35,10 +35,7 @@ const useStyles = makeStyles({
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
-  const readings = await prisma.user.findUnique({
-    include: { readings: true,},
-    where: { email: "constanceingram94@gmail.com", },
-  });
+  const readings = await prisma.reading.findMany()
   return {
     props: {
       readings,
@@ -79,8 +76,14 @@ function Profile({ readings }) {
         {!session && <h1 className={styles.title}>please log in: <Button className={classes.basic} onClick={()=> signIn()}>Log In</Button></h1>}
         {session && <h1 className={styles.title}> welcome back, {session.user.name}</h1>}
         <div>
-            <h2>your saved readings:</h2>
+            <h2>saved readings:</h2>
             <div>
+              { readings.map((reading) => 
+                <div className={styles.displayrow}>
+                    <p className={styles.displayitem}>{reading.card1}</p>
+                    <p className={styles.displayitem}>{reading.card2}</p>
+                    <p className={styles.displayitem}>{reading.card3}</p>
+                </div>)}
             </div>
           </div>
         <Box>

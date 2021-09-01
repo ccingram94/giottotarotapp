@@ -4,6 +4,17 @@
   justify-content: center;
 }
 
+.displayrow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.displayitem {
+  padding: 5px;
+  margin: 5px;
+}
+
 .container {
   min-height: 100vh;
   padding: 0 0.5rem;
