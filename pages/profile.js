@@ -9,6 +9,9 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import Question from '../components/Question.js'
+import { PrismaClient, Prisma } from '@prisma/client'
+import { useEffect } from 'react'
+
 
 const useStyles = makeStyles({
   basic: {
@@ -30,7 +33,21 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Profile() {
+export async function getStaticProps() {
+  const prisma = new PrismaClient();
+  const readings = await prisma.user.findUnique({
+    include: { readings: true,},
+    where: { email: "constanceingram94@gmail.com", },
+  });
+  return {
+    props: {
+      readings,
+    },
+  }
+}
+
+
+function Profile({ readings }) {
   const [ session, loading ] = useSession();
   const classes = useStyles();
 
@@ -43,6 +60,9 @@ export default function Profile() {
     router.push('/cardmeanings');
   }
 
+  console.log(readings)
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -52,18 +72,28 @@ export default function Profile() {
       </Head>
 
       <main className={classes.flexdisplay}>
-        {!session && <h1 className={styles.title}>please log in: <br /><Button className={classes.basic} onClick={()=> signIn()}>Log In</Button></h1>}
-        {session && <h1 className={styles.title}> welcome back, {session.user.name}</h1>}
-        <Box>
+        <div>
           <Button className={classes.basic} onClick={handleSubmit}>new reading</Button>
           <Button className={classes.basic} onClick={sendToCardMeanings}>card meanings</Button>
+        </div>
+        {!session && <h1 className={styles.title}>please log in: <Button className={classes.basic} onClick={()=> signIn()}>Log In</Button></h1>}
+        {session && <h1 className={styles.title}> welcome back, {session.user.name}</h1>}
+        <div>
+            <h2>your saved readings:</h2>
+            <div>
+            </div>
+          </div>
+        <Box>
           <div className={styles.buttonbar}>
               {!session && <Button onClick={() => signIn()}>Sign In</Button>}
               {session && <Button onClick={() => signOut()}>Sign Out</Button>}
-              {session && <Link href="/profile"><Button>My Profile</Button></Link>}
+            </div>
+            <div>
             </div>
         </Box>
       </main>
     </div>
   )
 }
+
+export default Profile
