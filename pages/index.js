@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import Question from '../components/Question.js'
+import { useState } from 'react'
 
 const useStyles = makeStyles({
   basic: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Home() {
+export default function Home({ question, setQuestion }) {
   const [ session, loading ] = useSession();
   const classes = useStyles();
 
@@ -52,7 +53,7 @@ export default function Home() {
           Giotto Tarot
         </h1>
         <Box>
-          <Button className={classes.basic} onClick={handleSubmit}>reveal my fate</Button>
+          <Question></Question>
           <div className={styles.buttonbar}>
               {!session && <Button onClick={() => signIn()}>Sign In</Button>}
               {session && <Button onClick={() => signOut()}>Sign Out</Button>}

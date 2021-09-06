@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { session, signIn, signOut, useSession } from 'next-auth/client'
 import Question from '../components/Question.js'
 import { PrismaClient, Prisma } from '@prisma/client'
 import { useEffect } from 'react'
@@ -35,7 +35,11 @@ const useStyles = makeStyles({
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
-  const readings = await prisma.reading.findMany()
+  const readings = await prisma.reading.findMany({
+    where: {
+      author: { email: session?.user?.email}
+    }
+  })
   return {
     props: {
       readings,

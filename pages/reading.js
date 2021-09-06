@@ -6,11 +6,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
-import { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import background from '../public/back.jpg'
 import { motion, AnimatePresence } from 'framer-motion'
 import {cards} from '../cards.js'
-import Question from '../components/Question.js'
+import { PrismaClient } from '@prisma/client'
+import QuestionDisplay from '../components/QuestionDisplay'
 
 
 const useStyles = makeStyles({
@@ -25,11 +26,17 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
   },
   button: {
 
   }
 })
+
+const submitData = (e) => {
+  e.preventDefault();
+  console.log(e);
+};
 
 function redirectHome () {
   router.push("/");
@@ -56,13 +63,11 @@ const card2 = pickCard(21);
 const card3 = pickCard(21);
 
 export default function Reading() {
-
   const [visibility, setVisibility] = useState(false);
   const [ flipped1, flipCard ] = useState(false);
   const [ flipped2, flipCard2 ] = useState(false);
   const [ flipped3, flipCard3 ] = useState(false);
   const classes = useStyles();
-
   return (
     <div className={styles.container}>
       <div className={styles.overlay}></div>
@@ -78,10 +83,15 @@ export default function Reading() {
           <Button onClick={redirectCards}>Card Meanings</Button>
           <Button onClick={redirectProfile}>My Profile</Button>
         </div>
+        <div>
+          <QuestionDisplay></QuestionDisplay>
+          {visibility && <Button className={classes.flexdisplay} onClick={submitData}>Save This Reading</Button>}
+        </div>
         {!visibility &&  <h2> Click the deck to deal your cards: </h2>}
         <div className={styles.row} layout="true">
           <div className={styles.deck}>
             <Image src={background} className={styles.deck} onClick={() => setVisibility(!visibility)}></Image>
+            {visibility && <Button className={classes.flexdisplay} onClick={submitData}>Save This Reading</Button>}
           </div>
           <motion.div className={styles.modal}>
             <AnimatePresence>
