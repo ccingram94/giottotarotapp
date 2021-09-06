@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {cards} from '../cards.js'
 import { PrismaClient } from '@prisma/client'
 import QuestionDisplay from '../components/QuestionDisplay'
+import { QuestionContext } from '../QuestionContext'
 
 
 const useStyles = makeStyles({
@@ -33,10 +34,6 @@ const useStyles = makeStyles({
   }
 })
 
-const submitData = (e) => {
-  e.preventDefault();
-  console.log(e);
-};
 
 function redirectHome () {
   router.push("/");
@@ -59,15 +56,43 @@ function pickCard(max) {
 }
 
 const card1 = pickCard(21);
+
 const card2 = pickCard(21);
+while (card2 == card1) {
+  card2 = pickCard(21);
+}
+
 const card3 = pickCard(21);
+while (card3 == card2) {
+  card3 = pickCard(21);
+}
 
 export default function Reading() {
+  const { question, setQuestion} = useContext(QuestionContext)
   const [visibility, setVisibility] = useState(false);
   const [ flipped1, flipCard ] = useState(false);
   const [ flipped2, flipCard2 ] = useState(false);
   const [ flipped3, flipCard3 ] = useState(false);
   const classes = useStyles();
+
+  const submitData = async (e) => {
+
+    try {
+      const body = {card1, card2, card3, question };
+      console.log(body);
+      await fetch('/api/post', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(body),
+      });
+      await Router.push('/profile'); 
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
   return (
     <div className={styles.container}>
       <div className={styles.overlay}></div>
@@ -91,7 +116,6 @@ export default function Reading() {
         <div className={styles.row} layout="true">
           <div className={styles.deck}>
             <Image src={background} className={styles.deck} onClick={() => setVisibility(!visibility)}></Image>
-            {visibility && <Button className={classes.flexdisplay} onClick={submitData}>Save This Reading</Button>}
           </div>
           <motion.div className={styles.modal}>
             <AnimatePresence>

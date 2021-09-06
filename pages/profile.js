@@ -79,10 +79,13 @@ function Profile({ readings }) {
             <h2>saved readings:</h2>
             <div>
               {session && readings.map((reading) => 
-                <div className={styles.displayrow}>
-                    <p className={styles.displayitem}>{reading.card1}</p>
-                    <p className={styles.displayitem}>{reading.card2}</p>
-                    <p className={styles.displayitem}>{reading.card3}</p>
+                <div>
+                    <h2 className={styles.displayitem}>{reading.question}</h2>
+                    <div className={styles.displayrow}>
+                      <p className={styles.displayitem}>{reading.card1}</p>
+                      <p className={styles.displayitem}>{reading.card2}</p>
+                      <p className={styles.displayitem}>{reading.card3}</p>
+                    </div>
                 </div>)}
               {!session && <p>sorry, you must be logged in to view saved readings</p>}
             </div>

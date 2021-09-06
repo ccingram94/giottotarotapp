@@ -13,9 +13,10 @@ model Reading {
   id        String  @id @default(cuid())
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
-  card1     String
-  card2     String
-  card3     String
+  card1     Int
+  card2     Int
+  card3     Int
+  question  String
 }
 
 model User {
