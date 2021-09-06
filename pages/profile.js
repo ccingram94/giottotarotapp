@@ -79,7 +79,7 @@ function Profile({ readings }) {
             <h2>saved readings:</h2>
             <div>
               {session && readings.map((reading) => 
-                <div>
+                <div key={reading.id}>
                     <h2 className={styles.displayitem}>{reading.question}</h2>
                     <div className={styles.displayrow}>
                       <p className={styles.displayitem}>{reading.card1}</p>
