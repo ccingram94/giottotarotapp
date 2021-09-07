@@ -55,14 +55,14 @@ function pickCard(max) {
   return Math.floor(Math.random() * max);
 }
 
-const card1 = pickCard(21);
+let card1 = pickCard(21);
 
-const card2 = pickCard(21);
+let card2 = pickCard(21);
 while (card2 == card1) {
   card2 = pickCard(21);
 }
 
-const card3 = pickCard(21);
+let card3 = pickCard(21);
 while (card3 == card2) {
   card3 = pickCard(21);
 }
