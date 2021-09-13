@@ -11,7 +11,7 @@ export default NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    Providers.Email({
+    Providers.EmailProvider({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
         port: process.env.EMAIL_SERVER_PORT,
@@ -20,8 +20,7 @@ export default NextAuth({
           pass: process.env.EMAIL_SERVER_PASSWORD,
         },
       },
-      from: process.env.EMAIL_FROM,
-      maxAge: 24 * 60 * 60,
+      from: process.env.EMAIL_FROM
     }),
   ],
   adapter: PrismaAdapter(prisma),

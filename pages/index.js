@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { signIn, signUp, signOut, useSession } from 'next-auth/client'
 import Question from '../components/Question.js'
 import { useState } from 'react'
 
@@ -56,6 +56,7 @@ export default function Home({ question, setQuestion }) {
           <Question></Question>
           <div className={styles.buttonbar}>
               {!session && <Button onClick={() => signIn()}>Sign In</Button>}
+              {!session && <Button onClick={() => signUp()}>Sign Up</Button>}
               {session && <Button onClick={() => signOut()}>Sign Out</Button>}
               {session && <Link href="/profile"><Button>My Profile</Button></Link>}
             </div>
