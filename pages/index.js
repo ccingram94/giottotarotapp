@@ -40,6 +40,10 @@ export default function Home({ question, setQuestion }) {
     router.push('/reading');
   }
 
+  function apiEndpoints () {
+    router.push('/apiendpoints')
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -56,6 +60,7 @@ export default function Home({ question, setQuestion }) {
           <Question></Question>
           <div className={styles.buttonbar}>
               {!session && <Button onClick={() => signIn()}>Sign In</Button>}
+              {!session && <Button onClick={apiEndpoints}>API Endpoints</Button>}
               {session && <Button onClick={() => signOut()}>Sign Out</Button>}
               {session && <Link href="/profile"><Button>My Profile</Button></Link>}
             </div>
