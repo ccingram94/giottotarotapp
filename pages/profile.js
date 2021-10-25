@@ -11,6 +11,7 @@ import { signIn, signOut, useSession } from 'next-auth/client'
 import Question from '../components/Question.js'
 import { PrismaClient, Prisma } from '@prisma/client'
 import { useEffect } from 'react'
+import { cards } from '../cards'
 
 
 const useStyles = makeStyles({
@@ -69,24 +70,7 @@ function Profile({ readings }) {
       </Head>
 
       <main className={classes.flexdisplay}>
-        {!session && <h1 className={styles.title}>please log in: </h1>}
-        {session && <h1 className={styles.title}> welcome back, {session.user.name}</h1>}
-        <div>
-            <h2>saved readings:</h2>
-            <div>
-              {session && readings.map((reading) => 
-                <div key={reading.id}>
-                    <h2 className={styles.displayitem}>{reading.question}</h2>
-                    <div className={styles.displayrow}>
-                      <p className={styles.displayitem}>{reading.card1}</p>
-                      <p className={styles.displayitem}>{reading.card2}</p>
-                      <p className={styles.displayitem}>{reading.card3}</p>
-                    </div>
-                </div>)}
-              {!session && <p>sorry, you must be logged in to view saved readings</p>}
-            </div>
-          </div>
-        <Box>
+      <Box>
           <div className={styles.buttonbar}>
               {!session && <Button onClick={() => signIn()}>Sign In</Button>}
               {session && <Button onClick={() => signOut()}>Sign Out</Button>}
@@ -94,6 +78,33 @@ function Profile({ readings }) {
             <div>
             </div>
         </Box>
+        {!session && <h1 className={styles.title}>please log in: </h1>}
+        {session && <h1 className={styles.title}> welcome back, {session.user.name}</h1>}
+        <div>
+            <h1>saved readings:</h1>
+            <div>
+              {session && readings.map((reading) => 
+                <div className={styles.row} key={reading.id}>
+                    <h2>Your Question:</h2>
+                    <h2 className={styles.displayitem}>{reading.question}</h2>
+                    <div className={styles.displayrow}>
+                      <div>
+                        <p>Card 1</p>
+                        <p className={styles.displayitem}>{reading.card1}</p>
+                      </div>
+                      <div>
+                        <p>Card 2</p>
+                        <p className={styles.displayitem}>{reading.card2}</p>
+                      </div>
+                      <div>
+                        <p>Card 3</p>
+                        <p className={styles.displayitem}>{reading.card3}</p>
+                      </div>
+                    </div>
+                </div>)}
+              {!session && <p>sorry, you must be logged in to view saved readings</p>}
+            </div>
+          </div>
         <div>
           <Button className={classes.basic} onClick={handleSubmit}>new reading</Button>
           <Button className={classes.basic} onClick={sendToCardMeanings}>card meanings</Button>
