@@ -69,10 +69,6 @@ function Profile({ readings }) {
       </Head>
 
       <main className={classes.flexdisplay}>
-        <div>
-          <Button className={classes.basic} onClick={handleSubmit}>new reading</Button>
-          <Button className={classes.basic} onClick={sendToCardMeanings}>card meanings</Button>
-        </div>
         {!session && <h1 className={styles.title}>please log in: </h1>}
         {session && <h1 className={styles.title}> welcome back, {session.user.name}</h1>}
         <div>
@@ -98,6 +94,10 @@ function Profile({ readings }) {
             <div>
             </div>
         </Box>
+        <div>
+          <Button className={classes.basic} onClick={handleSubmit}>new reading</Button>
+          <Button className={classes.basic} onClick={sendToCardMeanings}>card meanings</Button>
+        </div>
       </main>
     </div>
   )
